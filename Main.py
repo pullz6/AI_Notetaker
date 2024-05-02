@@ -13,7 +13,7 @@ import pyautogui
 import pytesseract
 #import PIL import Image
 
-api_key = 'sk-proj-FnK3MkwZfg7CROBpXm1tT3BlbkFJwJSbLwKTm50P2rtCaCoJ'
+api_key = 'sk-proj-SB7iHyoncUnAB8lAgueCT3BlbkFJDS1j5YVpWQcgRq4QUwsP'
 
 lang = 'en'
 
@@ -43,13 +43,19 @@ def get_audio():
 
             if 'my boyfriend' in said:
                 play_audio('I love you very much')
+            elif "Friday" in said:
+                new_string = said.replace("Friday","")
+                print(new_string)
+                completion = openai.chat.completions.create(model="gpt-4",messages=[{"role":"user","content":new_string}])
+                text = completion.choices[0].message.content
+                play_audio(text)
 
         except Exception as e:
             print('Exception', str(e))
+
 
 while True:
     if 'stop' in guy:
         break
     get_audio()
-
 
